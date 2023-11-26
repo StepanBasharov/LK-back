@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: database_lk
+    image: postgres
+    restart: always
+    volumes:
+      - ./postgres/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: lk
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  redis:
+    container_name: redis_lk
+    image: redis
+    networks:
+      - backend
+
+  web:
+    container_name: service_lk
+    build: .
+    command: bash -c "go build ./main.go && ./main"
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    driver: bridge

@@ -1,10 +1,13 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"LK_back/pkg/api/handlers"
+	"github.com/gin-gonic/gin"
+)
 
-func SetupRouter(r *gin.RouterGroup) {
-	r.POST("/sig-up")
-	r.POST("/sig-in")
+func SetupRouterUsers(r *gin.Engine) {
+	r.POST("/sig-up", handlers.CreateUserHandler)
+	r.POST("/sig-in", handlers.Authorization)
 	r.PUT("/user/:id")
 	r.GET("/user/:id")
 }
