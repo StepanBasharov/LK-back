@@ -4,6 +4,7 @@ import (
 	"LK_back/pkg/db"
 	"LK_back/pkg/models"
 	"LK_back/pkg/schemas"
+	"LK_back/pkg/service"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
@@ -34,6 +35,7 @@ func CreateUserHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Пользователь уже существует"})
 		return
 	}
+	service.SendSmsService(newUser.PhoneNumber)
 	c.JSON(http.StatusCreated, gin.H{"message": saveUser.ID})
 }
 
