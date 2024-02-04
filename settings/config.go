@@ -3,8 +3,10 @@ package settings
 import "os"
 
 type ConfigService struct {
-	Host string
-	Port string
+	Host         string
+	Port         string
+	PhoneForAuth string
+	MtsApiKey    string
 }
 
 type ConfigDB struct {
@@ -15,8 +17,10 @@ type ConfigDB struct {
 
 func InitConfigService() ConfigService {
 	config := ConfigService{
-		Host: os.Getenv("HOST"),
-		Port: os.Getenv("PORT"),
+		Host:         os.Getenv("HOST"),
+		Port:         os.Getenv("PORT"),
+		PhoneForAuth: os.Getenv("PHONE"),
+		MtsApiKey:    os.Getenv("OTP_MTS_KEY"),
 	}
 
 	return config
